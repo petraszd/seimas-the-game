@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <title>Seimo simuliacija</title>
+  <link rel="stylesheet" href="game.css" type="text/css" media="all" />
+
+</head>
+
+<body>
+  <header>
+    <h1>SEIMO SIMULIACIJA</h1>
+  </header>
+  <main id="App">
+    <!-- PLAYING { -->
+    <section class="GameState" id="GameState-Playing" style="display: none;">
+      <div id="Election">
+        <div id="Election-Content" class="closed">
+          <h2>Įvyko rinkimai</h2>
+          <h3>Mandatų pasiskirstymas:</h3>
+          <div id="Election-Parties-Wrapper">
+            <table id="Election-Parties"></table>
+          </div>
+          <div id="Election-Controls">
+            <button id="Election-OK">Gerai, kad įvyko</button>
+          </div>
+        </div>
+      </div>
+      <div id="Parties"></div>
+      <div id="Stats">
+        <ul>
+          <li>
+            <div class="count-wrapper">
+              <div id="Playing-Defense-Chart" class="count" style="width: 0%"></div>
+            </div>
+            <div id="Playing-Defense-Text" class="name"></div>
+          </li>
+          <li>
+            <div class="count-wrapper">
+              <div id="Playing-Social-Chart" class="count" style="width: 0%"></div>
+            </div>
+            <div id="Playing-Social-Text" class="name"></div>
+          </li>
+          <li>
+            <div class="count-wrapper">
+              <div id="Playing-Finance-Chart" class="count" style="width: 0%"></div>
+            </div>
+            <div id="Playing-Finance-Text" class="name"></div>
+          </li>
+        </ul>
+      </div>
+      <div id="Playing-Controls">
+        <button id="Playing-Veto">Vetuoti</button>
+        <button id="Playing-Pass">Leisti</button>
+      </div>
+      <div class="Law" id="Law"></div>
+      <div id="Term">
+        <div id="Term-Progress"></div>
+        <div id="Term-Label"></div>
+      </div>
+
+    </section>
+    <!-- PLAYING } -->
+
+    <!-- START { -->
+    <section class="GameState" id="GameState-Start">
+
+      <div id="Welcome">
+        <p>
+        <strong>Sveiki atvykę</strong>
+        </p>
+        <p>
+        į Lietuvos Respublikos Seimo (LRS) simuliaciją,
+        <strong>būsimasis prezidente</strong>.
+        Jūsų laukia išbandymas neribota vetavimo galia. Valdykite išmintingai,
+        o tai bus blogai.
+        </p>
+      </div>
+
+      <div id="Start-Controls">
+        <button id="Start-Start">Tapti prezidentu</button>
+      </div>
+
+      <div id="Explanation">
+        ("klonuotiškai" įkvėpta <a href="https://www.devolverdigital.com/games/view/reigns" target="_blank">Reigns</a>)
+      </div>
+
+    </section>
+    <!-- START } -->
+
+    <!-- END { -->
+    <section class="GameState" id="GameState-End" style="display: none;">
+      <div id="End-Reason"></div>
+      <div id="End-Description">
+        <span id="End-N-Laws"></span>
+        <span id="End-Message"></span>
+      </div>
+      <div id="End-Controls">
+        <button id="End-Restart">Bandyti dar kartą</button>
+      </div>
+    </section>
+    <!-- END } -->
+  </main>
+  <footer>
+    © 2017 Petras Zdanavičius (<a href="http://petraszd.com" target="_blank">http://petraszd.com</a>)
+  </footer>
+  <script src="game.js?v=2017-10-09" charset="utf-8"></script>
+</body>
+
+</html>

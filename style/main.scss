@@ -1,0 +1,636 @@
+@import 'colors';
+@import 'font';
+
+// Global Vars
+$font-family: 'Fairfax', sans-serif;
+
+$all-background: $theme-color3;
+$all-color: $theme-color2;
+$all-font-size: 14pt;
+$all-width: 1024px;
+$all-side-padding: 10px;
+
+$link-color: $theme-color4;
+
+$shadow-color: fade-out($theme-color1, 0.7);
+
+$button-font-size: 18pt;
+$button-side-padding: 7pt;
+$button-positive-background: $theme-color1;
+$button-positive-color: $theme-color3;
+$button-negative-background: $theme-color3;
+$button-negative-color: $theme-color1;
+
+@mixin playing-button($back-color, $text-color) {
+  background: $back-color;
+  color: $text-color;
+}
+
+@mixin positive-button() {
+  @include playing-button (
+    $button-positive-background,
+    $button-positive-color
+  );
+}
+
+@mixin negative-button() {
+  @include playing-button (
+    $button-negative-background,
+    $button-negative-color
+  );
+}
+
+@mixin begin-game-button() {
+  @include positive-button();
+  width: auto;
+  max-width: none;
+}
+
+// Header Vars
+$header-background: $theme-color1;
+$header-color: $theme-color3;
+$header-font-size: 15pt;
+$header-letter-spacing: 3pt;
+
+// Footer Vars
+$footer-background: $theme-color1;
+$footer-color: $theme-color3;
+$footer-font-size: 9pt;
+
+// Game State Vars
+$state-border-width: 3px;
+$state-border-color: $theme-color1;
+$state-side-padding: 8pt;
+
+// Start Vars
+$start-padding-top: 20pt;
+$start-p-padding-bottom: 18pt;
+$start-controls-padding-top: 20pt;
+$start-controls-padding-bottom: 60pt;
+
+// Ends Vars
+$end-padding-vertical: 10pt;
+$end-title-font-size: 20pt;
+
+// Playing Vars
+$playing-name-font-size: 12pt;
+$playing-name-font-size-mobile: 10pt;
+$playing-chart-height: 14pt;
+
+$playing-chart-background: lighten($theme-color1, 30);
+$playing-chart-color: $theme-color1;
+$playing-chart-timing-func: ease-in;
+
+$playing-stats-padding: 4pt;
+$playing-stats-game-over-color: $theme-color5;
+$playing-stats-name-timing-func: ease-in;
+
+$playing-law-font-size: 16pt;
+$playing-control-padding: 16pt;
+
+$playing-formula-padding-between-lines: 5pt;
+$playing-formula-text-font-size: 10pt;
+$playing-formula-number-font-size: 8pt;
+$playing-formula-line-height: 80%;
+$playing-formula-value-gap-size: 20pt;
+
+$playing-term-height: 8pt;
+$playing-term-font-size: $playing-term-height;
+$playing-term-text-color: $theme-color3;
+$playing-term-timing-func: ease-in;
+
+$playing-parties-label-font-size: 8pt;
+$playing-parties-label-color: $theme-color3;
+$playing-parties-label-shadow: $theme-color2;
+$playing-parties-barchart-height: 12pt;
+$playing-parties-timing-func: ease-in-out;
+
+$playing-election-height: 240px;
+$playing-election-mobile-height: 320px;
+$playing-election-side-margin: $all-side-padding * 2;
+$playing-election-top-margin: 18pt;
+$playing-election-padding: 10px;
+$playing-election-header-font-size: 16pt;
+$playing-election-label-font-size: 14pt;
+$playing-election-text-font-size: 14pt;
+$playing-election-timing-func: ease-out;
+
+// Styles
+* {
+  padding: 0;
+  margin: 0;
+  font-family: $font-family;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: $all-background;
+  color: $all-color;
+  font-size: $all-font-size;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: $link-color;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  width: auto;
+}
+
+button {
+  vertical-align: middle;
+  max-width: 200px;
+  padding-left: $button-side-padding;
+  padding-right: $button-side-padding;
+
+  box-shadow: 3pt 2pt 0pt $shadow-color;
+
+  cursor: pointer;
+  font-size: $button-font-size;
+  @media (max-width: 440px), (max-height: 440px) {
+    font-size: $button-font-size * 0.8;
+  }
+  border: $state-border-width solid $state-border-color;
+
+  &::before {
+    content: '|\a0';
+  }
+
+  &::after {
+    content: '\a0|';
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    box-shadow: 0pt 0pt 0pt $shadow-color;
+    margin-bottom: -2pt;
+    margin-top: 2pt;
+  }
+
+  &:hover {
+    &:not(:disabled) {
+      &::before {
+        content: '-\a0';
+      }
+
+      &::after {
+        content: '\a0-';
+      }
+    }
+  }
+
+  &:disabled {
+    box-shadow: 0 0 0 $shadow-color;
+    opacity: 0.7;
+  }
+}
+
+header {
+  background: $header-background;
+  color: $header-color;
+  padding: 2pt $state-side-padding;
+
+  @media (max-height: 440px), (max-width: 440px) {
+    padding: 0 $state-side-padding;
+  }
+
+  h1 {
+    letter-spacing: $header-letter-spacing;
+    text-align: center;
+    font-size: $header-font-size;
+    font-weight: normal;
+  }
+}
+
+footer {
+  background-color: $footer-background;
+  color: $footer-color;
+  text-align: right;
+  font-size: $footer-font-size;
+  padding: 6pt $state-side-padding;
+
+  @media (max-height: 440px), (max-width: 440px) {
+    display: none;
+  }
+}
+
+main {
+  flex: 1 1 auto;
+  margin: auto;
+  max-width: $all-width;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.GameState {
+  flex: 1 1 auto;
+  padding: 0 $all-side-padding;
+}
+
+#GameState-Playing {
+  @mixin top-info() {
+    border-bottom: $state-border-width solid $state-border-color;
+    border-left: $state-border-width solid $state-border-color;
+    border-right: $state-border-width solid $state-border-color;
+  }
+
+  display: flex;
+  flex-direction: column;
+
+  #Stats {
+    @include top-info();
+
+    ul {
+      list-style-type: none;
+      display: flex;
+      padding: 0 $state-side-padding / 2;
+
+      li {
+        padding: $playing-stats-padding 0 $playing-stats-padding 0;
+        flex: 1 1 auto;
+        width: 100% * 1 / 3;
+      }
+
+      .name {
+        transition: color 0.2s;
+        transition-timing-function: $playing-stats-name-timing-func;
+
+        color: $theme-color3;
+        text-shadow: 0 0 2px $playing-chart-color;
+        font-size: $playing-name-font-size;
+        @media (max-width: 440px) {
+          font-size: $playing-name-font-size-mobile;
+        }
+        line-height: $playing-chart-height;
+        text-align: center;
+
+        &.game-over {
+          color: $playing-stats-game-over-color;
+        }
+
+        .prompter {
+          font-size: 90%;
+          letter-spacing: -1pt;
+        }
+      }
+
+      .count-wrapper {
+        margin: 0 $state-side-padding / 2;
+        margin-bottom: -$playing-chart-height;
+        height: $playing-chart-height;
+        overflow: hidden;
+        background-color: $playing-chart-background;
+      }
+
+      .count {
+        transition: width 0.3s;
+        transition-timing-function: $playing-chart-timing-func;
+
+        height: $playing-chart-height;
+        background-color: $playing-chart-color;
+      }
+    }
+  }
+
+  #Parties {
+    @include top-info();
+
+    height: $playing-parties-barchart-height;
+
+    ul {
+      list-style-type: none;
+
+      // Trick to prevent browser showing gap even under 100% fill up
+      height: $playing-parties-barchart-height;
+      background: $party-color-pop;
+    }
+
+    li {
+      transition: width 0.5s;
+      transition-timing-function: $playing-parties-timing-func;
+      float: left;
+      font-size: $playing-parties-label-font-size;
+      color: $playing-parties-label-color;
+      text-shadow: 0 0 2px $playing-parties-label-shadow;
+      text-align: center;
+      overflow: hidden;
+      white-space: nowrap;
+      height: $playing-parties-barchart-height;
+      line-height: $playing-parties-barchart-height;
+      border-left: $state-border-width solid $state-border-color;
+      margin-left: -$state-border-width;
+
+      &.SOC { background-color: $party-color-soc; }
+      &.KON { background-color: $party-color-kon; }
+      &.POP { background-color: $party-color-pop; }
+      &.LIB { background-color: $party-color-lib; }
+    }
+  }
+
+  #Playing-Controls {
+    position: relative;
+    height: $button-font-size * 2;
+    @media (max-width: 440px), (max-height: 440px) {
+      height: $button-font-size * 1.5;
+    }
+    display: flex;
+    flex: 0 0 auto;
+    padding: $playing-control-padding 0;
+    justify-content: space-around;
+    flex-direction: row;
+    border-bottom: $state-border-width solid $state-border-color;
+
+    @media (max-height: 440px), (max-width: 440px) {
+      order: 100;
+      padding: $playing-control-padding * 0.25 0;
+      border-bottom: 0;
+      border-top: $state-border-width solid $state-border-color;
+    }
+
+    button {
+      width: 50%;
+
+      &:first-child {
+        margin-right: 6pt;
+      }
+
+      &:last-child {
+        margin-left: 6pt;
+      }
+
+      &#Playing-Veto {
+        @include negative-button();
+      }
+
+      &#Playing-Pass {
+        @include positive-button();
+      }
+    }
+  }
+
+  #Law {
+    font-size: $playing-law-font-size;
+    flex: 1 1 auto;
+    overflow: auto;
+    padding-top: $playing-control-padding / 2;
+
+    .Formula {
+      line-height: $playing-formula-line-height;
+      margin-top: $playing-formula-padding-between-lines * 3;
+      padding: $playing-formula-padding-between-lines;
+      border: 1px dashed $state-border-color;
+
+      .text {
+        border-top: 1px dashed $state-border-color;
+        font-size: $playing-formula-text-font-size;
+        font-weight: bold;
+        padding-top: $playing-formula-padding-between-lines;
+        margin-top: $playing-formula-padding-between-lines;
+
+        &:first-child {
+          padding-top: 0;
+          margin-top: 0;
+          border-top: 0;
+        }
+      }
+
+      .number-label {
+        font-size: $playing-formula-number-font-size;
+        padding-left: $playing-formula-value-gap-size;
+      }
+
+      .number {
+        font-weight: bold;
+      }
+    }
+
+    .Phrase {
+      line-height: 120%;
+
+      cursor: default;
+
+      .Party {
+        visibility: hidden;
+        position: absolute;
+        padding-top: $playing-law-font-size * 1.1;
+        font-size: 7pt;
+      }
+
+      &.touched,
+      &:hover {
+        color: lighten($all-color, 20%);
+        text-decoration: underline;
+
+        &.SOC { color: $party-color-soc; }
+        &.LIB { color: $party-color-lib; }
+        &.KON { color: $party-color-kon; }
+        &.POP { color: $party-color-pop; }
+
+        .Party {
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  #Term {
+    border-top: 0;
+    background-color: $playing-chart-background;
+
+    #Term-Label {
+      color: $theme-color3;
+      text-shadow: 0 0 2px $playing-chart-color;
+      height: $playing-term-height;
+      line-height: $playing-term-height;
+      font-size: $playing-term-font-size;
+      text-align: center;
+    }
+
+    #Term-Progress {
+      transition: width 0.2s;
+      transition-timing-function: $playing-term-timing-func;
+
+      margin-bottom: -$playing-term-height;
+      height: $playing-term-height;
+      background-color: $playing-chart-color;
+    }
+  }
+
+  #Election {
+    position: absolute;
+    width: $all-width;
+    margin-left: -$all-side-padding;
+    max-width: 100%;
+    z-index: 2;
+
+    #Election-Content {
+      // Hack to prevent webkit leaving strange rendering artifacts
+      -webkit-transform: translate3d(0, 0, 0); // sass-lint:disable-line no-vendor-prefixes
+      transition: margin-top 0.4s;
+      transition-timing-function: $playing-election-timing-func;
+
+      display: flex;
+      flex: 0 0 auto;
+      flex-direction: column;
+
+      min-height: $playing-election-height;
+      margin: $playing-election-top-margin $playing-election-side-margin 0;
+      @media (max-width: 440px) {
+        min-height: $playing-election-mobile-height;
+      }
+
+      border: $state-border-color solid $state-border-width;
+      background-color: $all-background;
+      padding: 0 $playing-election-padding $playing-election-padding * 1.5 $playing-election-padding;
+      box-shadow: 4pt 4pt 0 $shadow-color;
+
+      &.opened {
+        margin-top: $playing-election-top-margin;
+      }
+
+      &.closed {
+        margin-top: -$playing-election-height * 2;
+        @media (max-width: 440px) {
+          min-height: -$playing-election-mobile-height * 2;
+        }
+      }
+    }
+
+    h2 {
+      flex: 0 0 auto;
+      font-size: $playing-election-header-font-size;
+      text-align: center;
+    }
+
+    h3 {
+      flex: 0 0 auto;
+      font-size: $playing-election-label-font-size;
+    }
+
+    #Election-Parties-Wrapper {
+      flex: 1 0 auto;
+    }
+
+    td {
+      font-size: $playing-election-text-font-size;
+      padding-right: $playing-election-text-font-size * 0.25;
+      vertical-align: top;
+
+      &.number {
+        text-align: right;
+      }
+
+      div {
+        display: inline-block;
+        width: $playing-election-text-font-size * 0.75;
+        height: $playing-election-text-font-size * 0.75;
+        margin-right: 4pt;
+
+        &.SOC { background-color: $party-color-soc; }
+        &.KON { background-color: $party-color-kon; }
+        &.POP { background-color: $party-color-pop; }
+        &.LIB { background-color: $party-color-lib; }
+      }
+    }
+
+    #Election-Controls {
+      flex: 0 0 auto;
+      width: 100%;
+      text-align: center;
+      padding-top: 15px;
+    }
+
+    button {
+      @include positive-button();
+
+      max-width: none;
+      @media (max-width: 440px) {
+        font-size: $button-font-size * 0.75;
+      }
+    }
+  }
+}
+
+#GameState-Start {
+  text-align: left;
+  padding-top: $start-padding-top;
+
+  p {
+    padding: 0 0 $start-p-padding-bottom 0;
+  }
+
+  strong {
+    font-size: 110%;
+  }
+
+  #Welcome {
+    font-size: 120%;
+    line-height: 100%;
+  }
+
+  #Explanation {
+    font-size: 80%;
+  }
+
+  #Start-Controls {
+    text-align: center;
+    padding: $start-controls-padding-top 0 $start-controls-padding-bottom 0;
+  }
+
+  button {
+    @include begin-game-button();
+  }
+}
+
+#GameState-End {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    @include begin-game-button();
+  }
+
+  #End-Reason {
+    order: 1;
+    padding: $end-padding-vertical 0;
+    font-size: $end-title-font-size;
+    text-align: center;
+  }
+
+  #End-Description {
+    order: 2;
+  }
+
+  #End-Controls {
+    order: 3;
+    padding: $end-padding-vertical 0;
+    text-align: center;
+  }
+
+  @media (max-width: 440px), (max-height: 440px) {
+    #End-Description {
+      order: 3;
+    }
+
+    #End-Controls {
+      order: 2;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+*.pyc
+dist/*
+env/*
+node_modules/*
+laws.json
+*.ods\#
+.DS_Store
+fabfile.py
+tags

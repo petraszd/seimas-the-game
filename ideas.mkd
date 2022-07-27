@@ -1,0 +1,18 @@
+- Reikia neleisti paimti N tų pačių frazių iš kai kurių sąrašų, kad nekartotis
+  akivaizdžiai. Kai kuriuos sąrašus galima ignoruoti (pvz: boolean)
+
+
+# Partijos
+
+Koncervatoriai
+Socialdemokratai
+Liberalai
+Populistai (Gandrai)
+
+
+# Sritys
+
+Kariuomenė (Tankų skaičius)
+Žmonių skaičius
+Pinigų skaičius
+

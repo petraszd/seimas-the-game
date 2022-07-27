@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "diagnostics": true,
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "module": "amd",
+    "outFile": "./dist/game.js",
+    "removeComments": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es5"
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "files": [
+    "./src/law/json.d.ts"
+  ]
+}

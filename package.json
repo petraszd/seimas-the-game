@@ -1,0 +1,28 @@
+{
+  "author": "Petras Zdanavičius",
+  "description": "",
+  "main": "main.js",
+  "name": "pz-seimas-game",
+  "private": true,
+  "scripts": {
+    "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js -w",
+    "convert-laws": "cd laws && ./env/bin/python convert.py"
+  },
+  "version": "1.0.0",
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.2.3",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "file-loader": "^0.11.2",
+    "loader-utils": "^1.1.0",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "source-map-loader": "^0.2.1",
+    "style-loader": "^0.18.2",
+    "typescript": "^2.5.3",
+    "typings": "^2.1.1",
+    "webpack": "^2.7.0",
+    "webpack-dev-server": "^2.9.1"
+  },
+  "dependencies": {}
+}
